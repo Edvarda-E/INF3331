@@ -1,9 +1,5 @@
 Here's a line
 
-<<<<<<< HEAD
-Hello world from B!
-=======
-Hello world from A!
->>>>>>> 7791c04ccc6981954fea50defb39d101fe5004c5
+Hello world from everyone!
 
 Here's another line
