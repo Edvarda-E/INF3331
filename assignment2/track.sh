@@ -2,7 +2,6 @@
 
 function track () {
     action=$1
-    LOGFILE=./log.txt
     lastLineOfFile=$(tail -1 "$LOGFILE")
     case "$action" in
         start)
@@ -28,7 +27,7 @@ function track () {
             ;;
         status)
             if [[ "${lastLineOfFile}" =~ (LABEL ){1}(.*) ]]; then
-                echo "Your current task is ${lastLineOfFile}"
+                echo "Your current task is ${lastLineOfFile#* }"
             else
                 echo "ERROR: No task is currently active"
             fi
