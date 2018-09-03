@@ -44,6 +44,10 @@ function track () {
                     calculateAndPrintLog $startTimeConverted $endTimeConverted
                 fi
             done < $LOGFILE
+            if [[ "${lastLineOfFile}" =~ (LABEL ){1}(.*) ]]; then
+                currTime=`date "+%H:%M:%S"`
+                calculateAndPrintLog $startTimeConverted $currDateTime
+            fi
             ;;
         *)
             echo "ERROR: track only accepts the parameters start, stop and status"
