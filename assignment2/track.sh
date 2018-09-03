@@ -45,16 +45,25 @@ function track () {
                     removeNewline="${endTime/$'\r'/}"
                     endTimeConverted=`date -d "${removeNewline}" "+%T"`
 
-                    startTimeInSeconds=`date +%s -d ${startTimeConverted}`
-                    endTimeInSeconds=`date +%s -d ${endTimeConverted}`
-                    differenceInSeconds=`expr ${endTimeInSeconds} - ${startTimeInSeconds}`
-                    finalTime=`date +%H:%M:%S -ud @${differenceInSeconds}`
-
-                    echo "Task ${currentLabel}: ${finalTime}"
+                    # startTimeInSeconds=`date +%s -d ${startTimeConverted}`
+                    # endTimeInSeconds=`date +%s -d ${endTimeConverted}`
+                    # differenceInSeconds=`expr ${endTimeInSeconds} - ${startTimeInSeconds}`
+                    # finalTime=`date +%H:%M:%S -ud @${differenceInSeconds}`
+                    
+                    calculateAndPrintLog $startTimeConverted $endTimeConverted
                 fi
             done < $LOGFILE
             ;;
         *)
             echo "ERROR: track only accepts the parameters start, stop and status"
     esac
+}
+
+calculateAndPrintLog () {
+    startTimeInSeconds=`date +%s -d ${1}`
+    endTimeInSeconds=`date +%s -d ${2}`
+    differenceInSeconds=`expr ${endTimeInSeconds} - ${startTimeInSeconds}`
+    finalTime=`date +%H:%M:%S -ud @${differenceInSeconds}`
+
+    echo "${currentLabel}: ${finalTime}"
 }
