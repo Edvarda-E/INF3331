@@ -3,3 +3,6 @@ This is the repository for master student Edvarda Eriksen (ererikse), who's enro
 
 ## Assignment 1
 Assignment 1 is now done and can be found under `assignment1/`
+
+## Assignment 2
+Assignment 2 is now done and can be found under `assignment2/`. Please refer to the README under `assignment2/` for clarifications, decisions and how to run the scripts.
