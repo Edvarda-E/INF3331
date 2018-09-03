@@ -35,20 +35,11 @@ function track () {
         log)
             while IFS='' read -r line || [[ -n $line ]]; do
                 if [[ "${line}" =~ (START ){1}(.*) ]]; then
-                    startTime="${line#* }"
-                    removeNewline="${startTime/$'\r'/}"
-                    startTimeConverted=`date -d "${removeNewline}" "+%T"`
+                    startTimeConverted="$(convertLineFromFileToTime "${line}")"
                 elif [[ "${line}" =~ (LABEL ){1}(.*) ]]; then
                     currentLabel="${line#* }"
                 elif [[ "${line}" =~ (END ){1}(.*) ]]; then
-                    endTime="${line#* }"
-                    removeNewline="${endTime/$'\r'/}"
-                    endTimeConverted=`date -d "${removeNewline}" "+%T"`
-
-                    # startTimeInSeconds=`date +%s -d ${startTimeConverted}`
-                    # endTimeInSeconds=`date +%s -d ${endTimeConverted}`
-                    # differenceInSeconds=`expr ${endTimeInSeconds} - ${startTimeInSeconds}`
-                    # finalTime=`date +%H:%M:%S -ud @${differenceInSeconds}`
+                    endTimeConverted="$(convertLineFromFileToTime "${line}")"
                     
                     calculateAndPrintLog $startTimeConverted $endTimeConverted
                 fi
@@ -66,4 +57,12 @@ calculateAndPrintLog () {
     finalTime=`date +%H:%M:%S -ud @${differenceInSeconds}`
 
     echo "${currentLabel}: ${finalTime}"
+}
+
+convertLineFromFileToTime () {
+    lineToBeConverted="$1"
+    removeHelpTextFromLine="${lineToBeConverted#* }"
+    removeNewlineFromEndOfLine="${removeHelpTextFromLine/$'\r'/}"
+    convertFromDateTimeFormatToOnlyTime=`date -d "${removeNewlineFromEndOfLine}" "+%T"`
+    echo "$convertFromDateTimeFormatToOnlyTime"
 }
