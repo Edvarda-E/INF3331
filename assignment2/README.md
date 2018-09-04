@@ -62,6 +62,7 @@ Task 6: 00:20:54
 ```
 
 **Additional decisions**
+* If the logfile is empty when you run `track log`, the script will return with exit code 1, providing a warning stating so.
 * If a task is currently running during logging, it will take a snapshot of the current time and print the time from the task started up until now.
 * The log function *does not* support tasks that span over several days, as this was not required in the task.
 * As it doesn't support tasks that span over several days, it does not verify whether the end time is smaller than start time either.
