@@ -42,6 +42,11 @@ function track () {
             fi
             ;;
         log)
+            if [[ ! -s $LOGFILE ]]; then
+                echo "WARNING: The logfile is empty"
+                return 1
+            fi
+
             while IFS='' read -r line || [[ -n $line ]]; do
                 if [[ "${line}" =~ (START ){1}(.*) ]]; then
                     startTimeConverted="$(convertLineFromFileToTime "${line}")"
@@ -60,7 +65,7 @@ function track () {
             # time to see how long it's been since the task has started
             if [[ "${lastLineOfFile}" =~ (LABEL ){1}(.*) ]]; then
                 currTime=`date "+%H:%M:%S"`
-                calculateAndPrintLog $startTimeConverted $currDateTime
+                calculateAndPrintLog $startTimeConverted $currTime
             fi
             ;;
         *)
