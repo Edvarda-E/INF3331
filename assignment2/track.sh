@@ -2,6 +2,10 @@
 
 function track () {
     action=$1
+    if [[ -z $LOGFILE ]]; then
+        echo "Please create an environmental variable called \$LOGFILE"
+        return 1
+    fi
     lastLineOfFile=$(tail -1 "$LOGFILE")
     case "$action" in
         start)
