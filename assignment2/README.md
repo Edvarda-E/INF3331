@@ -16,12 +16,12 @@ As the task demands
 * `climb` and `climb 1` is equivalent to `cd ..`
 * `climb 5` is equivalent to `cd ../../../../../`
 
-Additional decisions
+**Additional decisions**
 * If more than one positional parameter is passed to the script, e.g. `climb 1 2`, the script will echo an error message and return.
 * The script is verbose, meaning that it will echo what is does to the terminal, e.g. `Walking up one directory`.
 
 ## Task 2.2 - A simple time tracker
-*Before* you run the script, remember to set an environmental variable called `$LOGFILE` with an assigned `.txt` file, so that the script runs correctly.
+*Before* you run the script, remember to set an environmental variable called `$LOGFILE` with an assigned `.txt` file, so that the script runs correctly. However, if you should forget, the script will print an error informing you on how to proceed.
 
 To run the script, make the script executable and then source it
 ``` 
@@ -32,7 +32,7 @@ $ track start "Task 1"
 ```
 All functionality requested in the task is covered
 
-Additional decisions
+**Additional decisions**
 * I have slightly changed the format of the output, so expected output is for example:
 ```
 START 03/09/2018 15:38:49
@@ -42,7 +42,7 @@ END 03/09/2018 15:38:53
 
 **Known issues**
 * If you run the start action directly using e.g. `bash track.sh start`, the script will not warn you that it does not accept this action without the label.
-* Due to the different nature of line endings between the Windows OS and Linux, if you open the log.txt in Windows it will look a bit odd. I have solved the task with respects to LF lineendings, so that it works in the terminal and in Linux.
+* I have solved the task with respects to LF lineendings, so that it works in the terminal and on Linux. Due to the different nature of line endings between the Windows OS and Linux, if you open the log.txt in Windows it will look a bit odd.
 
 ## Task 2.3 - Make the tracker useful
 This task is implemented in the same script as task 2.2, and can be run (after the script is executable and sourced) as follows:
@@ -61,7 +61,7 @@ Task 5: 07:44:53
 Task 6: 00:20:54
 ```
 
-Additional decisions
+**Additional decisions**
 * If a task is currently running during logging, it will take a snapshot of the current time and print the time from the task started up until now.
 * The log function *does not* support tasks that span over several days, as this was not required in the task.
 * As it doesn't support tasks that span over several days, it does not verify whether the end time is smaller than start time either.
