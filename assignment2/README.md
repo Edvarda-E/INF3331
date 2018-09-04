@@ -61,6 +61,8 @@ Task 5: 07:44:53
 Task 6: 00:20:54
 ```
 
+Testing data is available in `./log.txt`
+
 **Additional decisions**
 * If the logfile is empty when you run `track log`, the script will return with exit code 1, providing a warning stating so.
 * If a task is currently running during logging, it will take a snapshot of the current time and print the time from the task started up until now.
