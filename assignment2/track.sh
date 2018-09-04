@@ -46,7 +46,7 @@ function track () {
                 echo "WARNING: The logfile is empty"
                 return 1
             fi
-
+            
             while IFS='' read -r line || [[ -n $line ]]; do
                 if [[ "${line}" =~ (START ){1}(.*) ]]; then
                     startTimeConverted="$(convertLineFromFileToTime "${line}")"
