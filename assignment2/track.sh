@@ -18,10 +18,10 @@ function track () {
             else
                 # If the last line of the file is END, add whitespace
                 if [[ "${lastLineOfFile}" =~ (END ){1}(.*) ]]; then
-                    echo -e "\r\n" >> $LOGFILE
+                    echo -e "\n" >> $LOGFILE
                 fi
                 currDateTime=`date "+%d/%m/%Y %H:%M:%S"`
-                echo -e "START ${currDateTime}\r\nLABEL ${2}" | tee -a $LOGFILE
+                echo -e "START ${currDateTime}\nLABEL ${2}" | tee -a $LOGFILE
             fi
             ;;
         stop)
