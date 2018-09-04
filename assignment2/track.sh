@@ -69,7 +69,7 @@ function track () {
             fi
             ;;
         *)
-            echo "ERROR: track only accepts the parameters start, stop and status"
+            echo "ERROR: track only accepts the parameters start, stop, status and log"
     esac
 }
 
@@ -90,7 +90,6 @@ calculateAndPrintLog () {
 convertLineFromFileToTime () {
     lineToBeConverted="$1"
     removeHelpTextFromLine="${lineToBeConverted#* }" # Removes START, LABEL..
-    removeNewlineFromEndOfLine="${removeHelpTextFromLine/$'\r'/}"
-    convertFromDateTimeFormatToOnlyTime=`date -d "${removeNewlineFromEndOfLine}" "+%T"`
+    convertFromDateTimeFormatToOnlyTime=`date -d "${removeHelpTextFromLine}" "+%T"`
     echo "$convertFromDateTimeFormatToOnlyTime"
 }
