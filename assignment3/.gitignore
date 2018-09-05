@@ -1,0 +1,5 @@
+# Ignore the idea dir
+.idea
+
+# Ignore the test material folder
+wctest/
