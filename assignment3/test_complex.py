@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import math
 from complex import Complex
 
 
@@ -139,10 +140,37 @@ def test_rsub_subtraction():
 
 
 def test_modulus():
-    pass
+    z = Complex(0, 0)
+    assert z.modulus() == 0
+
+    z = Complex(3, 7)
+    assert z.modulus() == math.sqrt(58)
+
+    z = Complex(-6, -4)
+    assert z.modulus() == 2*math.sqrt(13)
+
+    z = Complex(-10, 0)
+    assert z.modulus() == 10
+
+    z = Complex(-2, -8)
+    assert z.modulus() == 2*math.sqrt(17)
 
 
 def test_conjugate():
-    pass
+    z = Complex(0, 0)
+    assert z.conjugate() == 0
+
+    z = Complex(3, 7)
+    assert z.conjugate() == Complex(3, -7)
+
+    z = Complex(-9, -4)
+    assert z.modulus() == Complex(-9, 4)
+
+    z = Complex(12, -9)
+    assert z.modulus() == Complex(12, 9)
+
+    z = Complex(-3, 7)
+    assert z.modulus() == Complex(-3, -7)
+
 
 # TODO: (Optional) Test multiplication
