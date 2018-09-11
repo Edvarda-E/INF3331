@@ -21,23 +21,17 @@ class Complex:
 
     def __add__(self, other):
         if isinstance(other, Complex):
-            self.real = self.real + other.real
-            self.imag = self.imag + other.imag
-            return str(self)
+            return Complex(self.real + other.real, self.imag + other.imag)
         elif isinstance(other, int):
-            self.real = self.real + other
-            return str(self)
+            return Complex(self.real + other, self.imag)
         else:
             print("Can't add input")
 
     def __sub__(self, other):
         if isinstance(other, Complex):
-            self.real = self.real - other.real
-            self.imag = self.imag - other.imag
-            return str(self)
+            return Complex(self.real - other.real, self.imag - other.imag)
         elif isinstance(other, int):
-            self.real = self.real - other
-            return str(self)
+            return Complex(self.real - other, self.imag)
         else:
             print("Can't subtract input")
 
@@ -48,9 +42,9 @@ class Complex:
             c = other.real
             d = other.imag
 
-            self.real = ((a*c) - (b*d))
-            self.imag = (a*d) + (b*c)
-            return str(self)
+            real = (a*c) - (b*d)
+            imag = (a*d) + (b*c)
+            return Complex(real, imag)
         else:
             "Cannot multiply other than Complex cases"
 
@@ -77,7 +71,7 @@ class Complex:
     def __complex__(self):
         pass
 
-    def __str__(self):
+    def __repr__(self):
         plus_minus = "+" if self.imag > 0 else "-"
         if self.real != 0 and self.imag != 0:
             if self.imag == 1 or self.imag == -1:
