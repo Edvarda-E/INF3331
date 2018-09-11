@@ -3,9 +3,9 @@
 
 class Complex:
 
-    def __init__(self, a=1, b=1):
-        self.a = a
-        self.b = b
+    def __init__(self, real=1, imag=1):
+        self.real = real
+        self.imag = imag
 
     # Assignment 3.3
 
