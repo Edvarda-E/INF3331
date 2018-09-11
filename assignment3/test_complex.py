@@ -128,7 +128,7 @@ def test_subtraction():
 
     z = Complex(-17, -5)
     w = Complex(8, 3)
-    assert (z - w) == "-9 - 8i"
+    assert (z - w) == "-25 - 8i"
 
     z = Complex(-11, 2)
     w = Complex(15, 3)

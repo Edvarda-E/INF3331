@@ -27,7 +27,15 @@ class Complex:
             print("Can't add input")
 
     def __sub__(self, other):
-        pass
+        if isinstance(other, Complex):
+            self.real = self.real - other.real
+            self.imag = self.imag - other.imag
+            return str(self)
+        elif isinstance(other, int):
+            self.real = self.real - other
+            return str(self)
+        else:
+            print("Can't subtract input")
 
     def __mul__(self, other):
         pass
