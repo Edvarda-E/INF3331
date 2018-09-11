@@ -135,7 +135,7 @@ class Complex:
     def __complex__(self):
         return self.real + self.imag * 1j
 
-    def __repr__(self):
+    def __str__(self):
         """ A string function that converts the complex number to a readable string.
         Will write all numbers on the form a+bi
         """
