@@ -8,7 +8,7 @@ def test_addition():
     w = Complex(0, 0)
     assert (z + w) == "0"
 
-    #assert (z + 1) == "1"
+    assert (z + 1) == "1"
 
     z = Complex(0, 1)
     w = Complex(0, 0)
