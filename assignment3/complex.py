@@ -160,3 +160,29 @@ class Complex:
             return "0"
         else:
             return "%s" % self.real
+
+    def __repr__(self):
+        """ A string function that converts the complex number to a readable string.
+        Will write all numbers on the form a+bi
+        """
+        # Saves the sign to ensure the space between the sign and
+        # the imaginary part , e.g 1 + 2i
+        plus_minus = "+" if self.imag > 0 else "-"
+
+        if self.real != 0 and self.imag != 0:
+            # Special case where output is either +i or -i, not +1i or -1i
+            if self.imag == 1 or self.imag == -1:
+                return "%s %s i" % (str(self.real), plus_minus)
+            else:
+                return "%s %s %si" % (str(self.real), plus_minus, str(abs(self.imag)))
+        elif self.real == 0 and self.imag != 0:
+            if self.imag == 1:
+                return "i"
+            elif self.imag == -1:
+                return "%si" % plus_minus
+            else:
+                return "%si" % str(self.imag)
+        elif self.real == 0 and self.imag == 0:
+            return "0"
+        else:
+            return "%s" % self.real
