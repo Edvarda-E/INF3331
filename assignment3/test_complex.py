@@ -5,6 +5,9 @@ from complex import Complex
 
 
 def test_addition():
+    """
+    Verifies that the __add__ magic function works as intended
+    """
     z = Complex(0, 0)
     w = Complex(0, 0)
     assert (z + w) == Complex(0, 0)     # "0"
@@ -69,12 +72,15 @@ def test_addition():
 
 
 def test_radd_addition():
+    """ Verifies that the __radd__ magic function works as intended """
     assert 2 + Complex(3, 7) == Complex(5, 7)
     assert (2+2j) + Complex(2, 3) == Complex(4, 5)
     assert (-4+1j) + Complex(2, 5) == Complex(-2, 6)
 
 
 def test_subtraction():
+    """ Verifies that the __sub__ magic function works as intended """
+
     z = Complex(0, 0)
     w = Complex(0, 0)
     assert (z - w) == Complex(0, 0)     # "0"
@@ -139,12 +145,14 @@ def test_subtraction():
 
 
 def test_rsub_subtraction():
+    """ Verifies that the __rsub__ magic function works as intended """
     assert 3 - Complex(3, 3) == Complex(0, -3)
     assert (-4+9j) - Complex(-3, -4) == Complex(-1, 13)
     assert (12+6j) - Complex(4, 3) == Complex(8, 3)
 
 
 def test_modulus():
+    """ Verifies that the modulus function works as intended """
     z = Complex(0, 0)
     assert z.modulus() == 0
 
@@ -162,6 +170,7 @@ def test_modulus():
 
 
 def test_conjugate():
+    """ Verifies that the conjugate function works as intended """
     z = Complex(0, 0)
     assert z.conjugate() == Complex(0, 0)       # "0"
 
@@ -185,6 +194,7 @@ def test_conjugate():
 
 
 def test_equals():
+    """ Verifies that the __eq__ magic function works as intended """
     z = Complex(0, 0)
     assert z == Complex(0, 0)
 
@@ -202,6 +212,7 @@ def test_equals():
 
 
 def test_multiplication():
+    """ Verifies that the __mul__ magic function works as intended """
     z = Complex(0, 0)
     w = Complex(0, 0)
     assert (z * w) == Complex(0, 0)     # "0"
@@ -224,5 +235,6 @@ def test_multiplication():
 
 
 def test_rmul_multiplication():
+    """ Verifies that the __rmul__ magic function works as intended """
     assert 16 * Complex(4, 1) == Complex(64, 16)
     assert 4 * Complex(3, 4) - 2 == Complex(10, 16)
