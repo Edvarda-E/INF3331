@@ -158,19 +158,25 @@ def test_modulus():
 
 def test_conjugate():
     z = Complex(0, 0)
-    assert z.conjugate() == 0
+    assert z.conjugate() == "0"
+
+    z = Complex(4, 0)
+    assert z.conjugate() == "4"
+
+    z = Complex(0, 11)
+    assert z.conjugate() == "-11i"
 
     z = Complex(3, 7)
-    assert z.conjugate() == Complex(3, -7)
+    assert z.conjugate() == "3 - 7i"
 
     z = Complex(-9, -4)
-    assert z.modulus() == Complex(-9, 4)
+    assert z.conjugate() == "-9 + 4i"
 
     z = Complex(12, -9)
-    assert z.modulus() == Complex(12, 9)
+    assert z.conjugate() == "12 + 9i"
 
     z = Complex(-3, 7)
-    assert z.modulus() == Complex(-3, -7)
+    assert z.conjugate() == "-3 - 7i"
 
 
 def test_equals():

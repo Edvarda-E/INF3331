@@ -10,7 +10,8 @@ class Complex:
     # Assignment 3.3
 
     def conjugate(self):
-        pass
+        self.imag = abs(self.imag) if self.imag < 0 else -self.imag
+        return str(self)
 
     def modulus(self):
         pass
