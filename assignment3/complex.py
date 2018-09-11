@@ -16,7 +16,12 @@ class Complex:
         pass
 
     def __add__(self, other):
-        pass
+        if isinstance(other, Complex):
+            self.real = self.real + other.real
+            self.imag = self.imag + other.imag
+            return str(self)
+        else:
+            print("Can't add input")
 
     def __sub__(self, other):
         pass
@@ -25,7 +30,10 @@ class Complex:
         pass
 
     def __eq__(self, other):
-        pass
+        if isinstance(other, Complex):
+            return self.real == other.real and self.imag == other.imag
+        else:
+            return False
 
     # Assignment 3.4
     def __radd__(self, other):
@@ -43,3 +51,22 @@ class Complex:
     # Make the `complex` function turn this into Python's version of a complex number
     def __complex__(self):
         pass
+
+    def __str__(self):
+        plus_minus = "+" if self.imag > 0 else "-"
+        if self.real != 0 and self.imag != 0:
+            if self.imag == 1 or self.imag == -1:
+                return "%s %s i" % (str(self.real), plus_minus)
+            else:
+                return "%s %s %si" % (str(self.real), plus_minus, str(abs(self.imag)))
+        elif self.real == 0 and self.imag != 0:
+            if self.imag == 1:
+                return "i"
+            elif self.imag == -1:
+                return "%si" % plus_minus
+            else:
+                return "%si" % str(self.imag)
+        elif self.real == 0 and self.imag == 0:
+            return "0"
+        else:
+            return "%s" % self.real
