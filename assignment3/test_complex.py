@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import pytest
 import math
 from complex import Complex
 
@@ -68,7 +69,9 @@ def test_addition():
 
 
 def test_radd_addition():
-    pass
+    assert 2 + Complex(3, 7) == Complex(5, 7)
+    assert (2+2j) + Complex(2, 3) == Complex(4, 5)
+    assert (-4+1j) + Complex(2, 5) == Complex(-2, 6)
 
 
 def test_subtraction():
@@ -136,7 +139,9 @@ def test_subtraction():
 
 
 def test_rsub_subtraction():
-    pass
+    assert 3 - Complex(3, 3) == Complex(0, -3)
+    assert (-4+9j) - Complex(-3, -4) == Complex(-1, 13)
+    assert (12+6j) - Complex(4, 3) == Complex(8, 3)
 
 
 def test_modulus():
@@ -158,25 +163,25 @@ def test_modulus():
 
 def test_conjugate():
     z = Complex(0, 0)
-    assert z.conjugate() == "0"
+    assert z.conjugate() == Complex(0, 0)       # "0"
 
     z = Complex(4, 0)
-    assert z.conjugate() == "4"
+    assert z.conjugate() == Complex(4, 0)       # "4"
 
     z = Complex(0, 11)
-    assert z.conjugate() == "-11i"
+    assert z.conjugate() == Complex(0, -11)     # "-11i"
 
     z = Complex(3, 7)
-    assert z.conjugate() == "3 - 7i"
+    assert z.conjugate() == Complex(3, -7)      # "3 - 7i"
 
     z = Complex(-9, -4)
-    assert z.conjugate() == "-9 + 4i"
+    assert z.conjugate() == Complex(-9, 4)      # "-9 + 4i"
 
     z = Complex(12, -9)
-    assert z.conjugate() == "12 + 9i"
+    assert z.conjugate() == Complex(12, 9)      # "12 + 9i"
 
     z = Complex(-3, 7)
-    assert z.conjugate() == "-3 - 7i"
+    assert z.conjugate() == Complex(-3, -7)     # "-3 - 7i"
 
 
 def test_equals():
@@ -218,3 +223,6 @@ def test_multiplication():
     assert (z * w) == Complex(1, 21)    # "1 + 21i"
 
 
+def test_rmul_multiplication():
+    assert 16 * Complex(4, 1) == Complex(64, 16)
+    assert 4 * Complex(3, 4) - 2 == Complex(10, 16)
