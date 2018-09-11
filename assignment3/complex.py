@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import math
 
 
 class Complex:
@@ -14,7 +15,9 @@ class Complex:
         return str(self)
 
     def modulus(self):
-        pass
+        a = self.real**2
+        b = self.imag**2
+        return math.sqrt(a + b)
 
     def __add__(self, other):
         if isinstance(other, Complex):
