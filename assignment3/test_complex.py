@@ -195,4 +195,26 @@ def test_equals():
     z = Complex(13, -37)
     assert z == Complex(13, -37)
 
-# TODO: (Optional) Test multiplication
+
+def test_multiplication():
+    z = Complex(0, 0)
+    w = Complex(0, 0)
+    assert (z * w) == "0"
+
+    z = Complex(1, 1)
+    w = Complex(1, 1)
+    assert (z * w) == "2i"
+
+    z = Complex(-8, -2)
+    w = Complex(3, 9)
+    assert (z * w) == "-6 - 78i"
+
+    z = Complex(4, 1)
+    w = Complex(7, -3)
+    assert (z * w) == "31 - 5i"
+
+    z = Complex(1, 4)
+    w = Complex(5, 1)
+    assert (z * w) == "1 + 21i"
+
+

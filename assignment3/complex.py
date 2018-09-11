@@ -42,7 +42,17 @@ class Complex:
             print("Can't subtract input")
 
     def __mul__(self, other):
-        pass
+        if isinstance(other, Complex):
+            a = self.real
+            b = self.imag
+            c = other.real
+            d = other.imag
+
+            self.real = ((a*c) - (b*d))
+            self.imag = (a*d) + (b*c)
+            return str(self)
+        else:
+            "Cannot multiply other than Complex cases"
 
     def __eq__(self, other):
         if isinstance(other, Complex):
