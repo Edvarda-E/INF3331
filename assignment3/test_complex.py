@@ -173,4 +173,20 @@ def test_conjugate():
     assert z.modulus() == Complex(-3, -7)
 
 
+def test_equals():
+    z = Complex(0, 0)
+    assert z == Complex(0, 0)
+
+    z = Complex(2, 3)
+    assert z == Complex(2, 3)
+
+    z = Complex(-2, -3)
+    assert z == Complex(-2, -3)
+
+    z = Complex(-19, 20)
+    assert z == Complex(-19, 20)
+
+    z = Complex(13, -37)
+    assert z == Complex(13, -37)
+
 # TODO: (Optional) Test multiplication
