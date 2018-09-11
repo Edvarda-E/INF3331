@@ -3,3 +3,7 @@
 
 # Ignore the test material folder
 wctest/
+
+.cache/*
+
+__pycache__
