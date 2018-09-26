@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 
 
 def mandelbrot(z, max_iterations=1000):
@@ -25,16 +26,47 @@ def mandelbrot(z, max_iterations=1000):
 
 
 def draw_mandelbrot_set(xmin, xmax, ymin, ymax, width, height, max_iterations):
-    r1 = np.linspace(xmin, xmax, width)
-    r2 = np.linspace(ymin, ymax, height)
-    temp_matrix = np.empty((len(r1), len(r2)))
-    for i in range(len(r1)):
-        for j in range(len(r2)):
-            real = r1[i]
-            imag = r2[j]
+    """
+    Function that generates a matrix, feeding x and y to the mandelbrot function as a complex number x + yj, and stores
+    the return values for each coordinate
+
+    Arguments:
+        xmin (float): Lowest value for x, the real part of the complex number
+        xmax (float): Highest value for x, the real part of the complex number
+        ymin (float): Lowest value for y, the imaginary part of the complex number
+        ymax (float): Highest value for y, the imaginary part of the complex number
+        width (int): The width of the matrix
+        height (int): The height of the matrix
+        max_iterations (int): Number of times the mandelbrot function should iterate
+
+    Returns:
+        temp_matrix (2d Array): The result of the calculations for each complex number x + yj
+    """
+    row = np.linspace(xmin, xmax, width)
+    col = np.linspace(ymin, ymax, height)
+    temp_matrix = np.empty((len(row), len(col)))
+    for i in range(len(row)):
+        for j in range(len(col)):
+            real = row[i]
+            imag = col[j]
             temp_matrix[i, j] = mandelbrot(complex(real, imag), max_iterations)
     return temp_matrix
 
 
-plt.imshow(draw_mandelbrot_set(-0.74877, -0.74872, 0.06505, 0.06510, 1000, 1000, 1000))
-plt.show()
+def main():
+    """
+    The function that is run if the python script is called directly
+    """
+    # rgb values are divided by 255 to become values between 0 and 1
+    colours = [(0.1411764705882353, 0.1607843137254902, 0.1803921568627451),    # grey - rgb(36, 41, 46)
+               (0.11372549019607843, 0.7254901960784313, 0.32941176470588235)]  # green - rgb(29, 185, 84)
+    custom_colourmap = LinearSegmentedColormap.from_list("gray_to_green", colours, 200)
+    mandelbrot_matrix = draw_mandelbrot_set(-0.74877, -0.74872, 0.06505, 0.06510, 1000, 1000, 1000)
+
+    plt.imshow(mandelbrot_matrix, cmap=custom_colourmap)
+    plt.show()
+
+
+# Runs if mandelbrot_1.py is called directly from commandline
+if __name__ == "__main__":
+    main()
