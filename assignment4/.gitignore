@@ -1,2 +1,5 @@
 *.idea
 __pycache__/*
+*.c
+*.pyd
+build/
