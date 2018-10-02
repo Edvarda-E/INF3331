@@ -75,5 +75,5 @@ def main(xmin, xmax, ymin, ymax, width, height, image_name="numpy_image", max_it
 if __name__ == "__main__":
     mandelbrot_fast_parameters = [-2.0, 0.5, -1.25, 1.25, 1000, 1000, "numpy_image", 80]
     mandelbrot_slow_parameters = [-0.74877, -0.74872, 0.06505, 0.06510, 1000, 1000, "numpy_image", 1000]
-    # main(*mandelbrot_fast_parameters)
-    main(*mandelbrot_slow_parameters)
+    main(*mandelbrot_fast_parameters)
+    # main(*mandelbrot_slow_parameters)
