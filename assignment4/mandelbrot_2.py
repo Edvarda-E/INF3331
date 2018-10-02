@@ -51,7 +51,7 @@ def draw_mandelbrot_set(xmin, xmax, ymin, ymax, width, height, max_iterations):
     return temp_matrix
 
 
-def main(xmin, xmax, ymin, ymax, width, height, image_name="numba_image", max_iterations=1000):
+def main(xmin, xmax, ymin, ymax, width, height, image_name="numpy_image", max_iterations=1000):
     """
     The function that generates a colourmap, calculates the mandelbrot set with draw_mandelbrot_set and stores the
     """
