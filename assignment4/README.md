@@ -17,7 +17,9 @@ This is where you can easily modify the parameters of the implementation, and ca
 Alternatively you can run the user interface created in Assignment 4.5 (see below), where you can input your own 
 parameters by calling the script directly with your desired implementation. 
 
-*Potential warning*: Last commit was pushed fairly late, so if the snapshots are taken manually there might be a mistake
+*Potential warnings*: 
+* `#!/usr/bin/env python` was not included in the python files as I used the built-in python3 interpreter in PyCharm
+* Last commit was pushed fairly late, so if the snapshots are taken manually there might be a mistake
 ## 4.1 - Python implementation of Mandelbrot Set
 Running the script
 ```

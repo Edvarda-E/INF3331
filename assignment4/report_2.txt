@@ -1,0 +1,17 @@
+Python implementation:
+Parameters: -2.0, 0.5, -1.25, 1.25, 1000, 1000, 80
+Average runtime (3 loops): 0:00:06.932019
+
+Parameters: -0.74877, -0.74872, 0.06505, 0.06510, 1000, 1000, 1000
+Average time (3 loops): 0:02:40.265975
+
+Numpy implementation:
+Parameters: -2.0, 0.5, -1.25, 1.25, 1000, 1000, 80
+Average runtime (3 loops): 0:00:20.794487
+
+Parameters: -0.74877, -0.74872, 0.06505, 0.06510, 1000, 1000, 1000
+Average runtime (3 loops): 0:04:19.836166
+
+Numpy is even slower than regular lists. This is due to the fact that Numpy is still python, and python is super slow
+when it comes to running several for-loops. However, had I used boolean indexing rather than setting the steps of
+iterations it took, the process would have been speeded quite a bit.
