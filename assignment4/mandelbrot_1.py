@@ -18,7 +18,6 @@ def mandelbrot(z, max_iterations=1000):
     """
     c = z
     for i in range(max_iterations):
-        # print(z)
         if abs(z) > 2:
             return i
         z = z * z + c
@@ -70,3 +69,13 @@ def main():
 # Runs if mandelbrot_1.py is called directly from commandline
 if __name__ == "__main__":
     main()
+
+
+def save_python_implemenation(xmin, xmax, ymin, ymax, width, height, image_name):
+    colours = [(0.1411764705882353, 0.1607843137254902, 0.1803921568627451),  # grey - rgb(36, 41, 46)
+               (0.11372549019607843, 0.7254901960784313, 0.32941176470588235)]  # green - rgb(29, 185, 84)
+    custom_colourmap = LinearSegmentedColormap.from_list("gray_to_green", colours, 1000)
+    mandelbrot_matrix = draw_mandelbrot_set(xmin, xmax, ymin, ymax, width, height, 80)
+    plt.imshow(mandelbrot_matrix, cmap=custom_colourmap, extent=[xmin, xmax, ymin, ymax])
+    plt.savefig(image_name + ".png")
+
