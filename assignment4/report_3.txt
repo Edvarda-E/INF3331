@@ -1,0 +1,17 @@
+Numpy implementation:
+Parameters: -2.0, 0.5, -1.25, 1.25, 1000, 1000, 80
+Average runtime (3 loops): 0:00:20.794487
+
+Parameters: -0.74877, -0.74872, 0.06505, 0.06510, 1000, 1000, 1000
+Average runtime (3 loops): 0:04:19.836166
+
+Numba implmenetation:
+Parameters: -2.0, 0.5, -1.25, 1.25, 1000, 1000, 80
+Average runtime (3 loops): 0:00:00.915492
+
+Parameters: -0.74877, -0.74872, 0.06505, 0.06510, 1000, 1000, 1000
+Average runtime (3 loops): 0:00:05.013102
+
+
+Numba is significantly faster, as it is a mix of C and Python, whereas C has tremendously faster for-loops. Thus, in
+this case, it is certainly an advantage to use a mixture of C and Python, such as Numba.
