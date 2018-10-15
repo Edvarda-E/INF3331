@@ -1,9 +1,7 @@
-import sys
-
 
 def read_syntax_file(file):
     """
-    File that processes a syntax file, turning it into a Python dictionary. Expects each line of the
+    Module that processes a syntax file, turning it into a Python dictionary. Expects each line of the
     syntax file to follow the format "RegEx": name, ex. "NNNN.*(?:$|\n)": comment
 
     Arguments:
@@ -32,3 +30,31 @@ def read_syntax_file(file):
         print("Error when attempting to open file: " + file + "\nError Message:" + repr(error))
 
     return syntax_dict
+
+
+def read_color_file(file):
+    """
+    Module that processes a theme file, turning it into a Python dictionary. Expects each line of the
+    theme file to follow the format name: color, ex. comment: 0;32
+
+    Arguments:
+        file (A .theme file): Input file with a name for a color and a color in the bash color sequence
+
+    Returns
+        syntax_dictionary (dictionary): Stored values from file in dictionary as [name] = 'color'
+
+    """
+    color_dict = {}
+    try:
+        with open(file, 'r') as color_file:
+            for line in color_file.readlines():
+                if len(line.split(':')) == 2:
+                    name, color = line.split(':')
+                    color_dict[name.strip()] = color.strip()
+                else:
+                    # line.split(':') was not 2, which is unexpected behavior
+                    print("Problem reading syntax from the following line:\n" + line)
+
+    except IOError as error:
+        print("Error when attempting to open file: " + file + "\nError Message:" + repr(error))
+    return color_dict
