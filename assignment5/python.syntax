@@ -1,5 +1,9 @@
-"#\s?.*$": comment
+"#\h?.*$": comment
 "(\bdef\s+)(\w+\s*)(\(.*?\):)" : function
+"\".*?\"|\'.*?\'": strings
 "(?=\h*)(\bimport\b\h*)(?:\w+\h*)|((?=\h*)(from\b )(?:\w+\h*))" : import
 "(\bTrue\b|\bNone\b|\bFalse\b)" : special
 "((?=\h*)(\@\w+)(\(((\h*\w+\h*)+[\=,]?)*\))?)": decorators
+"(?=\h*)\btry:\n|(?=\h*)\bexcept \w+( as \w+)?:": try_except
+"(?=\h*)\bfor (?:\w+(\h*,\h*\w+)*?) in (?:\w+(\.\w+)*)((\(.*?\)))*:": for_loops
+
