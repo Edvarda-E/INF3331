@@ -36,8 +36,6 @@ def main():
                 previous_match_end = match.end()
 
         print(match_string)
-            # if color_dict[name] is not None:
-            #    print(color_dict[name])
 
     else:
         print("\nError: highlighter.py expects to receive three files as arguments as follows:\n"
