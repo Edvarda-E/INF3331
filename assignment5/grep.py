@@ -8,16 +8,13 @@ def main():
     parser = argparse.ArgumentParser(description="grep-like utility")
     parser.add_argument("input",
                         type=str,
-                        help="Input file with content to be matched"
-                             "Example: comment: 0;32")
+                        help="Input file with content to be matched")
     parser.add_argument("syntax",
                         type=str,
-                        help="A syntax file, containing a dictionary of RegExes and associated names\n"
-                             "Example: NNNN.*(?:$|): comment")
+                        help="A syntax file, containing a dictionary of RegExes and associated names\n")
     parser.add_argument("--highlighter",
                         action="store_true",
-                        help="Color the matches "
-                             "Example: NNNN.*(?:$|): comment")
+                        help="Color the matches")
 
     args = parser.parse_args()
 
@@ -31,8 +28,9 @@ def main():
             for line in output_string:
                 processed_line = re.sub("\n", "", line)
                 if matcher.search(processed_line):
-                    print(matcher.search(processed_line))
                     if args.highlighter:
+                        previous_match_end = 0
+                        match_string = ""
                         colours = [
                             31,  # red
                             32,  # green
@@ -40,14 +38,20 @@ def main():
                             34,  # blue
                             35   # magneta
                         ]
-                        match_start, match_end = matcher.search(processed_line).span()
-                        print(line[:match_start] + r'\033[{}m'.format(colours[infinite_iterator])+\
-                                line[match_start:match_end] + r'\033[0m' + line[match_end:])
+                        for match in matcher.finditer(line):
+                            match_string += line[previous_match_end:match.start()] +  \
+                                            r'\033[{}m'.format(colours[infinite_iterator]) + \
+                                            line[match.start():match.end()] + r'\033[0m'
+                            print(infinite_iterator)
+                            previous_match_end = match.end()
                         infinite_iterator = infinite_iterator + 1 if infinite_iterator < len(colours)-1 else 0
+                        print(match_string)
                     else:
                         print(line)
     else:
         print("\nError: grep.py expects to receive two files as arguments as follows:\n"
               ">>> grep.py foo.syntax")
 
-main()
+
+if __name__ == '__main__':
+    main()
