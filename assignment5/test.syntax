@@ -1,2 +1,2 @@
-"NNNN.*": comment
+"(NNNN)(.*)": comment
 "\bAnmer\b": Anmer
