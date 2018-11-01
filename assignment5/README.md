@@ -1,8 +1,10 @@
 # Assignment 5
-This is the directory for assignment 5, done by Edvarda Eriksen (ererikse) enrolled in INF4331.
+This is the directory for Assignment 5, done by Edvarda Eriksen (ererikse) enrolled in INF4331.
 
 ## General notice
 This repository is on a 3-day extension period due to sickness and is not done yet!
+
+This assignment was solved on a Ubuntu 18.04 system, and has been tested on a Windows 10 WLS system.
 ## 5.1
 Running the script
 ```
@@ -10,16 +12,37 @@ $ python3 highlighter.py test.syntax test.theme
 ```
 
 
-## 5.2 
-Running the script
+## 5.2 - Colortheme for Python
+Running the demo:
 ```
-$ python mandelbrot_2.py
+$ python3 highlighter.py python.syntax python.theme
+
+$ python3 highlighter.py python.syntax python2.theme
 ```
 
-**Additional decisions**
-* Everytime you run the script, you store an image called `numpy_image`, unless specifically specified otherwise in 
-task 4.5.
-* If an image exists with the same name, it will be overwritten everytime the script is re-run
+### while-loops
+```
+Full RegEx: (\bwhile\b\h*)(?:\(\h*)?(?:\w+\h*|\w+\h*(?:==|!=|<>|>|<|>=|<=)\h*\w+)(?:\h*\))?(?::)
+
+(\bwhile\b\h*)              # while key-word with trailing optional horizontal whitespace
+(?:\(\h*)?                  # Optional ( and horizontal whitespace before expression
+
+(?:\w+\h*                   # Matches a standalone expression, e.g. a parameter "while i"
+|                           # Or
+\w+\h*                      # Matches a plain expresison and optional whitespace ...
+    (?:==|!=|<>|>|<|>=|<=)  # Followed by one of these comparators ...
+\h*\w+)                     # Followed by optional whitespace and another expression
+
+(?:\h*\))?                  # Optional whitespace and closing )
+(?::)                       # Ended by the needed :
+```
+All groups after the while-keyword is non-captured as I do not wish to color them, only match them.
+
+*Known problems and additional decisions for while*:
+- The RegEx wrongfully matches statements like `while (i>2:`
+- The while RegEx does not cover and/or operators, e.g. `while (i>2) and (j<3):`
+- The while RegEx does not cover mathematical operators, e.g. `while(i % 2):`
+
 
 ## 5.3
 Not done
