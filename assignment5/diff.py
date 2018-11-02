@@ -28,14 +28,15 @@ def main():
                 print("0 " + original_line)
                 break
             if j == len(modified_file)-1:
-                modified_file = modified_file[:i+1] + [original_line] + modified_file[i+1:]
+                modified_file = modified_file[:i] + [original_line] + modified_file[i:]
                 print("- " + original_line)
             temp_array.append(modified_file[j])
-        if i == len(original_file)-1 and i < len(modified_file)-1:
-            for x in range(len(modified_file)-(len(modified_file)-len(original_file))+1, len(modified_file)):
+        if i == len(original_file)-1 and i < len(modified_file):
+            for x in range(i+1, len(modified_file)):
                 print("+ " + modified_file[x])
     og_file.close()
     rm_file.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

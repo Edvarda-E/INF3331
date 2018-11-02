@@ -5,6 +5,17 @@ from filereader import read_syntax_file
 
 
 def main():
+    """
+    Parses positional arguments and highlights an input file based on the given RegEx and theme colors given
+    from the terminal
+
+    Arguments:
+        input file (file):  An arbitrary file with contents to be outputted to the terminal
+        syntax file (file): A .syntax file as a RegEx dictionary
+
+    Returns:
+        Calls the highlight function that prints the matched output to the terminal
+    """
     parser = argparse.ArgumentParser(description="grep-like utility")
     parser.add_argument("input",
                         type=str,
@@ -22,15 +33,16 @@ def main():
         regex_dict = read_syntax_file(args.syntax)
         infinite_iterator = 0
         output_string = list(open(args.input, 'r').readlines())
-        for regex, name in regex_dict.items():
-            processed_regex = regex.strip('\"')                 # Remove the " from the strings
-            matcher = re.compile(processed_regex)
-            for line in output_string:
-                processed_line = re.sub("\n", "", line)
+        for line in output_string:
+            processed_line = re.sub("\n", "", line)
+            for regex, name in regex_dict.items():
+                processed_regex = regex.strip('\"')                 # Remove the " from the strings
+                matcher = re.compile(processed_regex)
                 if matcher.search(processed_line):
                     if args.highlighter:
                         previous_match_end = 0
                         match_string = ""
+                        # Color array to cycle of infinitely
                         colours = [
                             31,  # red
                             32,  # green
@@ -40,9 +52,8 @@ def main():
                         ]
                         for match in matcher.finditer(line):
                             match_string += line[previous_match_end:match.start()] +  \
-                                            r'\033[{}m'.format(colours[infinite_iterator]) + \
-                                            line[match.start():match.end()] + r'\033[0m'
-                            print(infinite_iterator)
+                                            f'\033[{colours[infinite_iterator]}m' + \
+                                            line[match.start():match.end()] + f'\033[0m'
                             previous_match_end = match.end()
                         infinite_iterator = infinite_iterator + 1 if infinite_iterator < len(colours)-1 else 0
                         print(match_string)
