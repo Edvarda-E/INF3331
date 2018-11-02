@@ -15,13 +15,18 @@ A simple example based on the example given in the task.
 ## 5.2 - Colortheme for Python
 Running the demo:
 ```
-$ python3 highlighter.py python.syntax python.theme
+$ python highlighter.py python.syntax python.theme demo_python.py
 
 $ python3 highlighter.py python.syntax python2.theme
 ```
+`python.theme` has several different variables colored the same as "normal" syntax highlighting,
+while `python2.theme` colors everything differently
 
-***Assumptions***:
-- Even if code is located in a string and/or comment, it will still be highlighted as if it was anywhere else in the code
+![python_theme](imgs/pythontheme.PNG)
+
+**Known issues**:
+- I got a strange bug with my try-except RegEx that ruins all other RegExes, 
+and I regrettably didn't have the time to fix it
 
 
 ### Comments
@@ -163,7 +168,10 @@ All groups after the while-keyword is non-captured as I do not wish to color the
 - The while RegEx does not cover and/or operators, e.g. `while (i>2) and (j<3):`
 - The while RegEx does not cover mathematical operators, e.g. `while(i % 2):`
 
-**TODO: If/Elif/Else**
+### if/elif/else
+```
+"(\bif\b|\belif\b|\belse\b)"
+```
 
 ## 5.3
 Not done

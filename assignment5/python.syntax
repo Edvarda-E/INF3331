@@ -1,10 +1,10 @@
-"#.*?$": comment
-"(\bdef\h+)(?:\w+\h*)(?:\(.*?\):)" : function
-"\".*?\"|\'.*?\'": strings
-"(\bimport\b\h*)(?:\w+\h*)|((\bfrom\b )(?:\w+\h*))" : import
-"\bTrue\b|\bNone\b|\bFalse\b" : special
-"(\@\w+)(?:\((?:(?:\h*\w+\h*)+[\=,]?)*\))?": decorators
-"(\btry:\n)|(\bexcept )(?:\w+)(?: as \w+)?(?::)": try_except
-"(\bfor )(?:\w+(?:\h*,\h*\w+)*?)( in )(?:\w+(?:\.\w+)*)(?:(?:\(.*?\)))*:": for_loops
-"(\bwhile\b\h*)(?:\(\h*)?(?:\w+\h*|\w+\h*(?:==|!=|<>|>|<|>=|<=)\h*\w+)(?:\h*\))?(?::)": while_loops
-
+"(#.*)": comment
+"(\bdef\s+)(?:\w+\s*)(?:\(.*?\):)" : function
+"(\".*?\"|\'.*?\')": strings
+"(\bimport\b\s*)(?:\w+\s*)|((\bfrom\b )(?:\w+\s*))" : import
+"(\bTrue\b|\bNone\b|\bFalse\b)" : special
+"(\@\w+)(?:\((?:(?:\s*\w+\s*)+[\=,]?)*\))?": decorators
+"(\btry:)|(\bexcept )(?:\w+)(?: as \w+)?(?::)": try_except
+"(\bfor )(?:\w+(?:\s*,\s*\w+)*?)( in )(?:\w+(?:\.\w+)*)(?:(?:\(.*?\)))*:": for_loops
+"(\bwhile\b\s*)(?:\(\s*)?(?:\w+\s*|\w+\s*(?:==|!=|<>|>|<|>=|<=)\s*\w+)(?:\s*\))?(?::)": while_loops
+"(\bif\b|\belif\b|\belse\b)": if_else

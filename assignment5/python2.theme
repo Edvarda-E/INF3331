@@ -1,0 +1,10 @@
+comment: 31
+function: 32
+strings: 33
+import: 34
+special: 35
+decorators: 36
+try_except: 37
+for_loops: 42
+while_loops: 41
+if_else: 45
