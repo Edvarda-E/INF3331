@@ -57,30 +57,6 @@ def highlight(input_file, regex_dict, theme_dict):
     return color_injection(input_file, combined_dict, group=1)
 
 
-# def color_injection(match, color):
-#     print("---------")
-#     print(match, color)
-#     return "Hello"
-#
-#
-# def highlight(input, regex_dict, theme_dict=None):
-#     """
-#
-#     :param input:
-#     :param regex_dict:
-#     :param theme_dict:
-#     :return:
-#     """
-#     end_color = r'\033[0m'
-#     match_string_array = [None] * len(input)
-#     print("::::::::")
-#     for regex, regex_name in regex_dict.items():
-#         # matcher = re.compile(regex.strip('\"'))  # Remove the " from the RegEx strings
-#         for color_name, color_theme in theme_dict.items():
-#             if regex_name in theme_dict and color_name == regex_name:
-#                 re.sub(r'{}'.format(regex.strip('\"')), lambda match, color=color_theme: color_injection(match, color), input, flags=re.MULTILINE)
-
-
 def main():
     """
     Parses positional arguments and highlights an input file based on the given RegEx and theme colors given
