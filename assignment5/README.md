@@ -8,9 +8,9 @@ This assignment was solved on a Ubuntu 18.04 system, and has been tested on a Wi
 ## 5.1
 Running the script
 ```
-$ python3 highlighter.py test.syntax test.theme
+$ python highlighter.py test.syntax test.theme hello.ny
 ```
-
+A simple example based on the example given in the task.
 
 ## 5.2 - Colortheme for Python
 Running the demo:
