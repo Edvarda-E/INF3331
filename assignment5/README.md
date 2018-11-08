@@ -9,6 +9,30 @@ didn't have time to properly refactor the code.
 That being said, all decisions and most known issues are well documented.
 
 This assignment was solved on a Ubuntu 18.04 system, and has been tested on a Windows 10 WLS system.
+
+### Clarifications (added after Peer Review was received)
+#### argparse file handling
+I have intentionally decided to not use the `argparse.FileType()` option, and rather take the filenames as strings and
+handle the positional parameter validation inside my script using `os.path.isfile()` and `with open(File) as f:` based on 
+[this StockOverflow discussion](https://stackoverflow.com/questions/18862836/how-to-open-file-using-argparse),
+see specifically 
+[this answer](https://stackoverflow.com/questions/18862836/how-to-open-file-using-argparse#comment34787630_18863046).
+
+#### grep.py
+My `grep` script handles several RegExes the following way:
+1. Go through each line of the file
+2. For each line, check **every** RegEx given in the dictionary
+3. If a match is found, check if that particular RegEx match can be found several times one that line
+4. Regardless of one or more matches, print the line (the line will be printed once for every Regex matched).
+
+Due to this the output gets a bit funky, where one line can be printed several times based on different RegExes. At the
+time of doing the task this felt like an okay way to handle several RegExes, esepcially as the task didn't specify how 
+the script should handle several RegExes output.
+
+That being said, in retrospect I see that my solution could have been more "grep-like" by handling all the matches
+from different RegExes per line, and only print said line with all RegExes matched once, rather than printing unique 
+lines per RegEx.
+
 ## 5.1
 Running the script
 ```
