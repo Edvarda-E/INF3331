@@ -17,8 +17,6 @@ def plot_temperature(year_range, ymin, ymax, month):
     Returns:
         Saves the plot with the given boundaries as an image, in the imgs/temp folder
     """
-    # Assumption : Display a certain month over the given years in time_range args.month
-    # Additional decision: Files overwrite each other by month to keep folder size down
     try:
         # Use pandas to read the csv file, separating values on ,
         temp = pd.read_csv('data/temperature.csv', sep=",")
@@ -66,10 +64,6 @@ def plot_CO2(year_range, ymin, ymax):
     Returns:
         A plot of the given data
     """
-    # Additional decision: Let DataFrame handle the tick rate, despite making the graphs less detailed / decimal values
-    # Script warns you if y-values are entirely outside of dataset in your decisions
-    # MUST provide ranges :)
-    # Year must be different by atleast 1
     try:
         # Use pandas to read the csv file, separating values on ,
         co2_data = pd.read_csv('data/CO2.csv', sep=",")
