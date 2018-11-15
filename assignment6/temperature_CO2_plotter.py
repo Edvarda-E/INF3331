@@ -3,12 +3,12 @@ import argparse
 import matplotlib.pyplot as plt
 
 
-def plot_temperature(time_range, ymin, ymax, month):
+def plot_temperature(year_range, ymin, ymax, month):
     """"
     Module that generates a plot of the temperature data provided over the month given.
 
     Arguments:
-        time_range (tuple): Start and end year for plot
+        year_range (tuple): Start and end year for plot
         ymin (int): Smallest value for the y-axis
         ymax (int): Largest value for the y-axis
         month (str): What month to display temperature data for
@@ -17,17 +17,35 @@ def plot_temperature(time_range, ymin, ymax, month):
         Saves a plot of the given data
     """
     # Assumption : Display a certain month over the given years in time_range args.month
-    temp = pd.read_csv('data/temperature.csv', sep=",")
-    plot = temp.plot(
-        x='Year',               # Sets the x-axis to be years
-        y=['January'],          # Sets the y-axis to be the desired month
-        xlim=(time_range[0],    # xlim=(leftmost_value, rightmost_value)
-              time_range[1]),
-        ylim=(ymin, ymax)       # ylim=(bottom_value, top_value)
-    )
-    plot.set_xlabel('Year Temperature was Measured')
-    plot.set_ylabel('Temperature in Degrees Celsius')
-    plt.show()
+    try:
+        # Use pandas to read the csv file, separating values on ,
+        temp = pd.read_csv('data/temperature.csv', sep=",")
+
+        # Warns the user if the y-values are completely outside of the data set
+        if ymax < temp[month].min():
+            print("WARNING: Your ymax value is less than the lowest temperature value in the data set for " + month)
+            print("The lowest temperature is " + str(temp[month].min()) + " while you provided the ymax " + str(ymax))
+        elif ymin > temp[month].max():
+            print("WARNING: Your ymin value is higher than the highest temperature value in the data set for " + month)
+            print("The highest temperature is " + str(temp[month].max()) + " while you provided the ymin " + str(ymin))
+
+        plot = temp.plot(
+            title="Temperature Plot",
+            x='Year',                   # Sets the x-axis to be years
+            y=[month],                  # Sets the y-axis to be the temperature for the desired month
+            xlim=(year_range[0],        # xlim=(leftmost_value, rightmost_value)
+                  year_range[1]),
+            ylim=(ymin, ymax),          # ylim=(bottom_value, top_value)
+            grid=True
+        )
+        plot.set_xlabel('Year Temperature was Measured')
+        plot.set_ylabel('Temperature in Degrees Celsius')
+        plot.grid(linestyle="dotted")
+        plt.savefig('imgs/temp/{}_plot.png'.format(month))
+        # plt.show()
+
+    except FileNotFoundError as e:
+        print("Couldn't find the temperature data set")
 
 
 def plot_CO2(time_range, ymin, ymax, plot_data):
