@@ -5,18 +5,20 @@ import matplotlib.pyplot as plt
 
 def plot_temperature(year_range, ymin, ymax, month):
     """"
-    Module that generates a plot of the temperature data provided over the month given.
+    Module that generates a plot within the provided time- and temperature range, based on the temperature data set
+    found in the data directory.
 
     Arguments:
-        year_range (tuple): Start and end year for plot
-        ymin (int): Smallest value for the y-axis
-        ymax (int): Largest value for the y-axis
+        year_range (tuple): Start and end year for the plot
+        ymin (int): Smallest value for the temperature, meaning the y-axis
+        ymax (int): Largest value for the temperature, meaning the y-axis
         month (str): What month to display temperature data for
 
     Returns:
-        Saves a plot of the given data
+        Saves the plot with the given boundaries as an image, in the imgs/temp folder
     """
     # Assumption : Display a certain month over the given years in time_range args.month
+    # Additional decision: Files overwrite each other by month to keep folder size down
     try:
         # Use pandas to read the csv file, separating values on ,
         temp = pd.read_csv('data/temperature.csv', sep=",")
@@ -49,20 +51,54 @@ def plot_temperature(year_range, ymin, ymax, month):
         print("Couldn't find the temperature data set")
 
 
-def plot_CO2(time_range, ymin, ymax, plot_data):
+def plot_CO2(year_range, ymin, ymax):
     """
     Module that generates a plot of the CO2 data provided over the time range given.
 
     Arguments:
-        time_range (tuple): Start and end year for plot
+        year_range (tuple): Start and end year for plot
         ymin (int): Smallest value for the y-axis
         ymax (int): Largest value for the y-axis
-        plot_data (dict): CO2 data to be plotted
 
     Returns:
         A plot of the given data
     """
-    pass
+    # Additional decision: Let DataFrame handle the tick rate, despite making the graphs less detailed / decimal values
+    # Script warns you if y-values are entirely outside of dataset in your decisions
+    # MUST provide ranges :)
+    # Year must be different by atleast 1
+    try:
+        # Use pandas to read the csv file, separating values on ,
+        co2_data = pd.read_csv('data/CO2.csv', sep=",")
+
+        # Here I use boolean indexing to extract the parts of the dataframe within the year range only
+        extracted_data_by_year = co2_data[(co2_data['Year'] >= year_range[0]) & (co2_data['Year'] <= year_range[1])]
+
+        # Warns the user if the y-values are completely outside of the data set
+        lowest_co2_value = extracted_data_by_year['Carbon'].min()
+        highest_co2_value = extracted_data_by_year['Carbon'].max()
+        if ymax < lowest_co2_value:
+            print("WARNING: Your ymax value is less than the lowest CO2 value in the data set within the year range")
+            print("The lowest CO2 value is " + str(lowest_co2_value) + " while you provided the ymax " + str(ymax))
+        elif ymin > highest_co2_value:
+            print("WARNING: Your ymin value is larger than the highest CO2 value in the data set within the year range")
+            print("The highest CO2 value is " + str(highest_co2_value) + " while you provided the ymin " + str(ymin))
+
+        plot = extracted_data_by_year.plot(
+            title="CO2 Plot",
+            x='Year',
+            y='Carbon',
+            ylim=(ymin, ymax),
+            grid=True
+        )
+        plot.set_xlabel('Year CO2 was measured')
+        plot.set_ylabel('CO2 level')
+        plot.grid(linestyle="dotted")
+        plt.savefig("imgs/co2/CO2_levels_{}_{}".format(str(year_range[0]), str(year_range[1])))
+        plt.show()
+
+    except FileNotFoundError as e:
+        print("Couldn't find the temperature data set")
 
 
 def verify_positional_parameters(temp_args, parser):
@@ -79,6 +115,15 @@ def verify_positional_parameters(temp_args, parser):
     start_year = temp_args.time_range_start
     end_year = temp_args.time_range_end
 
+    # Verifications needed regardless of data set
+    if start_year > end_year:
+        parser.error("The start year (time_range_start) must be before the end year (time_range_end)!")
+    if temp_args.ymin > temp_args.ymax:
+        parser.error("The ymin value must be smaller than the ymax value")
+    if temp_args.ymin == temp_args.ymax:
+        parser.error("Must be atleast one year difference between the year ranges, e.g. 2011 2012")
+
+    # Data set specific verifications
     if data == "temperature":
         if temp_args.month is None:
             parser.error("Temperature requires a given month, run with -h for help")
@@ -90,7 +135,7 @@ def verify_positional_parameters(temp_args, parser):
             parser.error("time_range_end must be within the interval 1816 to 2012 for temperature")
         else:
             return
-    else: # co2 is the data
+    else:  # co2 is the data
         # Hardcoded year range values from the co2 dataset
         if start_year < 1751 or start_year > 2012:
             parser.error("time_range_start must be within the interval 1751 to 2012 for CO2")
@@ -147,4 +192,4 @@ if __name__ == "__main__":
     if args.data == "temperature":
         plot_temperature((args.time_range_start, args.time_range_end), args.ymin, args.ymax, args.month)
     else:
-        pass
+        plot_CO2((args.time_range_start, args.time_range_end), args.ymin, args.ymax)
