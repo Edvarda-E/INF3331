@@ -38,9 +38,10 @@ def plot_temperature(year_range, ymin, ymax, month):
             ylim=(ymin, ymax),          # ylim=(bottom_value, top_value)
             grid=True
         )
-        plot.set_xlabel('Year Temperature was Measured')
+        plot.set_xlabel('Year temperature was measured')
         plot.set_ylabel('Temperature in Degrees Celsius')
         plot.grid(linestyle="dotted")
+        # plot is a DataFrame AxesSubplot and has no savefig() module, hence I have to use the pyplot module instead
         plt.savefig('imgs/temp/{}_plot.png'.format(month))
         # plt.show()
 
