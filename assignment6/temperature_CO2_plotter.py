@@ -2,6 +2,7 @@ import pandas as pd
 import argparse
 import matplotlib.pyplot as plt
 
+
 def plot_temperature(time_range, ymin, ymax, month):
     """"
     Module that generates a plot of the temperature data provided over the month given.
@@ -45,7 +46,7 @@ def plot_CO2(time_range, ymin, ymax, plot_data):
     pass
 
 
-def verifiy_positional_parameters(temp_args, parser):
+def verify_positional_parameters(temp_args, parser):
     """
     Checks that the positional parameters have the correct values for the given data set
 
@@ -118,7 +119,7 @@ def create_argparser():
                         choices=choices,
                         help="What month the temperatures should be plotted for, required for temperature")
     temp_args = parser.parse_args()
-    verifiy_positional_parameters(temp_args, parser)
+    verify_positional_parameters(temp_args, parser)
     return temp_args
 
 
