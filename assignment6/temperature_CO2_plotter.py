@@ -23,20 +23,23 @@ def plot_temperature(year_range, ymin, ymax, month):
         # Use pandas to read the csv file, separating values on ,
         temp = pd.read_csv('data/temperature.csv', sep=",")
 
-        # Warns the user if the y-values are completely outside of the data set
-        if ymax < temp[month].min():
-            print("WARNING: Your ymax value is less than the lowest temperature value in the data set for " + month)
-            print("The lowest temperature is " + str(temp[month].min()) + " while you provided the ymax " + str(ymax))
-        elif ymin > temp[month].max():
-            print("WARNING: Your ymin value is higher than the highest temperature value in the data set for " + month)
-            print("The highest temperature is " + str(temp[month].max()) + " while you provided the ymin " + str(ymin))
+        # Here I use boolean indexing to extract the parts of the dataframe within the year range only
+        extracted_data_by_year = temp[(temp['Year'] >= year_range[0]) & (temp['Year'] <= year_range[1])]
 
-        plot = temp.plot(
+        # Warns the user if the y-values are completely outside of the data set
+        lowest_temp_value = extracted_data_by_year[month].min()
+        highest_temp_value = extracted_data_by_year[month].max()
+        if ymax < lowest_temp_value:
+            print("WARNING: Your ymax value is less than the lowest temperature value in the data set for " + month)
+            print("The lowest temperature is " + str(lowest_temp_value) + " while you provided the ymax " + str(ymax))
+        elif ymin > highest_temp_value:
+            print("WARNING: Your ymin value is higher than the highest temperature value in the data set for " + month)
+            print("The highest temperature is " + str(highest_temp_value) + " while you provided the ymin " + str(ymin))
+
+        plot = extracted_data_by_year.plot(
             title="Temperature Plot",
             x='Year',                   # Sets the x-axis to be years
-            y=[month],                  # Sets the y-axis to be the temperature for the desired month
-            xlim=(year_range[0],        # xlim=(leftmost_value, rightmost_value)
-                  year_range[1]),
+            y=month,                    # Sets the y-axis to be the temperature for the desired month
             ylim=(ymin, ymax),          # ylim=(bottom_value, top_value)
             grid=True
         )
@@ -71,7 +74,7 @@ def plot_CO2(year_range, ymin, ymax):
         # Use pandas to read the csv file, separating values on ,
         co2_data = pd.read_csv('data/CO2.csv', sep=",")
 
-        # Here I use boolean indexing to extract the parts of the dataframe within the year range only
+        # Again I use boolean indexing to extract the parts of the dataframe within the year range only
         extracted_data_by_year = co2_data[(co2_data['Year'] >= year_range[0]) & (co2_data['Year'] <= year_range[1])]
 
         # Warns the user if the y-values are completely outside of the data set
@@ -95,7 +98,7 @@ def plot_CO2(year_range, ymin, ymax):
         plot.set_ylabel('CO2 level')
         plot.grid(linestyle="dotted")
         plt.savefig("imgs/co2/CO2_levels_{}_{}".format(str(year_range[0]), str(year_range[1])))
-        plt.show()
+        # plt.show()
 
     except FileNotFoundError as e:
         print("Couldn't find the temperature data set")
