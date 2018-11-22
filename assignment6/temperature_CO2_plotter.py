@@ -10,8 +10,8 @@ def plot_temperature(year_range, ymin, ymax, month):
 
     Arguments:
         year_range (tuple): Start and end year for the plot
-        ymin (int): Smallest value for the temperature, meaning the y-axis
-        ymax (int): Largest value for the temperature, meaning the y-axis
+        ymin (float): Smallest value for the temperature, meaning the y-axis
+        ymax (float): Largest value for the temperature, meaning the y-axis
         month (str): What month to display temperature data for
 
     Returns:
@@ -45,7 +45,7 @@ def plot_temperature(year_range, ymin, ymax, month):
         plot.set_ylabel('Temperature in Degrees Celsius')
         plot.grid(linestyle="dotted")
         # plot is a DataFrame AxesSubplot and has no savefig() module, hence I have to use the pyplot module instead
-        plt.savefig('imgs/temp/{}_plot.png'.format(month))
+        plt.savefig('static/images/temp/{}_plot.png'.format(month))
         # plt.show()
 
     except FileNotFoundError as e:
