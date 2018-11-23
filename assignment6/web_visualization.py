@@ -1,9 +1,9 @@
-from temperature_CO2_plotter import plot_temperature
+from temperature_CO2_plotter import plot_temperature, plot_CO2
 from flask import Flask, render_template, request
 
 app = Flask(__name__, static_url_path='/static')
 
-# export FLASK_APP=hello.py
+# export FLASK_APP=web_visualization.py
 # export FLASK_ENV=development
 # flask run
 
@@ -21,7 +21,6 @@ def temperature():
     ymax = float(request.form['ymax'])
     month = request.form['selectMonth']
 
-    print(start_year, end_year)
     plot_temperature((start_year, end_year), ymin, ymax, month)
 
     file = '{}_plot.png'.format(month)
@@ -32,6 +31,24 @@ def temperature():
                            ymin=ymin,
                            ymax=ymax,
                            month=month,
+                           file=file)
+
+
+@app.route('/calculate_co2', methods=['POST'])
+def co2():
+    start_year = int(request.form['selectStartYearCo2'])
+    end_year = int(request.form['selectEndYearCo2'])
+    ymin = int(request.form['yminCo2'])
+    ymax = int(request.form['ymaxCo2'])
+
+    plot_CO2((start_year, end_year), ymin, ymax)
+    file = 'CO2_levels_{}_{}.png'.format(str(start_year), str(end_year))
+
+    return render_template('result_co2_template.html',
+                           start_year=start_year,
+                           end_year=end_year,
+                           ymin=ymin,
+                           ymax=ymax,
                            file=file)
 
 

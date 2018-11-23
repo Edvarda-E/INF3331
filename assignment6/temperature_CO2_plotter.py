@@ -91,7 +91,7 @@ def plot_CO2(year_range, ymin, ymax):
         plot.set_xlabel('Year CO2 was measured')
         plot.set_ylabel('CO2 level')
         plot.grid(linestyle="dotted")
-        plt.savefig("imgs/co2/CO2_levels_{}_{}".format(str(year_range[0]), str(year_range[1])))
+        plt.savefig("static/images/co2/CO2_levels_{}_{}".format(str(year_range[0]), str(year_range[1])))
         # plt.show()
 
     except FileNotFoundError as e:
