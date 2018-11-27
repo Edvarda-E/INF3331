@@ -7,8 +7,8 @@ import numpy as np
 
 def plot_temperature(year_range, ymin, ymax, month):
     """"
-    Module that generates a plot within the provided time- and temperature range, based on the temperature data set
-    found in the data directory.
+    Module that generates a plot within the provided time- and temperature range (y-values), based on the temperature
+    data set temperature.csv found in the data directory.
 
     Arguments:
         year_range (tuple): Start and end year for the plot
@@ -17,7 +17,7 @@ def plot_temperature(year_range, ymin, ymax, month):
         month (str): What month to display temperature data for
 
     Returns:
-        Saves the plot with the given boundaries as an image, in the imgs/temp folder
+        Saves the plot with the given boundaries as an image, in the ./static/images/temp directory
     """
     try:
         # Use pandas to read the csv file, separating values on ,
@@ -56,7 +56,8 @@ def plot_temperature(year_range, ymin, ymax, month):
 
 def plot_CO2(year_range, ymin, ymax):
     """
-    Module that generates a plot of the CO2 data provided over the time range given.
+    Module that generates a plot within the provided time- and CO2 emission range (y-values), based on the CO2 data set
+    CO2.csv found in the data directory.
 
     Arguments:
         year_range (tuple): Start and end year for plot
@@ -64,7 +65,7 @@ def plot_CO2(year_range, ymin, ymax):
         ymax (int): Largest value for the y-axis
 
     Returns:
-        A plot of the given data
+        Saves the plot with the given boundaries as an image, in the ./static/images/co2 directory
     """
     try:
         # Use pandas to read the csv file, separating values on ,
@@ -102,25 +103,30 @@ def plot_CO2(year_range, ymin, ymax):
 
 def plot_CO2_by_country(year, threshold):
     """
-    Module that generates a plot of the CO2 data provided over the time range given.
+    Module that generates a plot for the given year and adds split the  CO2 emissions based on the provided threhsold,
+    where the data is retireved  from the CO2_by_country.csv data set found in the data directory.
+    CO2.csv found in the data directory.
 
     Arguments:
         year (int): What year to plot CO2 emissions for
         threshold (float): The upper/lower threshold for the CO2 emission
 
     Returns:
-        Stores an image in ~/static/images/...
+        Saves the plot with the given boundaries as an image, in the ./static/images/co2_by_country directory
     """
     try:
         co2_data = pd.read_csv('data/CO2_by_country.csv', sep=",")
+        # I had some issues with the year being interpreted as an integer
         year = str(year)
-        y_pos = np.arange(len(co2_data[year]))
+        y_pos = np.arange(len(co2_data[year]))          # For the yticks
         countries = co2_data['Country Name'].values
         emissions = co2_data[year].values
 
+        # Separates the emissions based on the threshold, with values above and below
         above_threshold = np.maximum(emissions - threshold, 0)
         below_threshold = np.minimum(emissions, threshold)
 
+        # pyplot doesn't like arrays without commas, so I convert them to lists to add commas between the values
         above_threshold_with_commas = list(above_threshold)
         below_threshold_with_commas = list(below_threshold)
 
@@ -128,16 +134,19 @@ def plot_CO2_by_country(year, threshold):
         ax.barh(y_pos, below_threshold_with_commas, color="b")
         ax.barh(y_pos, above_threshold_with_commas, color="r", left=below_threshold)
         plt.yticks(y_pos, countries)
-        plt.gca().invert_yaxis()
-        plt.axvline(threshold, color='k', linestyle='dashed', label="Threshold")
+        plt.gca().invert_yaxis()        # Invert the y-axis so the countries appear in alphabetical order
+        plt.axvline(threshold,          # Generates the threshold vertical line through the plot
+                    color='k',
+                    linestyle='dashed',
+                    label="Threshold")
         plt.grid(linestyle="dotted")
 
         plt.title("CO2 Emission by Country for Year {}".format(year))
         plt.xlabel('CO2 Emission per Metric Capita')
-        plt.tight_layout()
-        plt.legend()
+        plt.tight_layout()              # Ensures all the country names make it into the picture
+        plt.legend()                    # Display labels for the threshold
         plt.savefig(fname="static/images/co2_by_country/CO2_levels_{}".format(year),
-                    dpi=80)
+                    dpi=80)             # Store a dpi to prevent the result being too different on different monitors
     except FileNotFoundError as e:
         print("Couldn't find the file")
 
@@ -269,4 +278,3 @@ if __name__ == "__main__":
     else:
         args = create_smaller_argparser()
         plot_CO2_by_country(args.year, args.threshold)
-

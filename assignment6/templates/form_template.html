@@ -15,7 +15,7 @@
             </div>
             <!-- The selects are populated by JavaScript in the static folder under utils.js -->
             <div class="col-sm-10">
-                <select id="selectStartYear" class="form-control" name="selectStartYear"></select>
+                <select id="selectStartYear" class="form-control" name="selectStartYear" required></select>
             </div>
         </div>
         <div class="form-group row">
@@ -23,7 +23,7 @@
                 <label for="selectEndYear">End year:</label>
             </div>
             <div class="col-sm-10">
-                <select id="selectEndYear" class="form-control" name="selectEndYear"></select>
+                <select id="selectEndYear" class="form-control" name="selectEndYear" required></select>
             </div>
         </div>
         <div class="form-group row">
@@ -31,7 +31,7 @@
                 <label for="selectMonth">Month:</label>
             </div>
             <div class="col-sm-10">
-                <select id="selectMonth" class="form-control" name="selectMonth"></select>
+                <select id="selectMonth" class="form-control" name="selectMonth" required></select>
             </div>
         </div>
         <div class="form-group row">
@@ -39,7 +39,7 @@
                 <label for="ymin">Lowest temperature in Celsius:</label>
             </div>
             <div class="col-sm-10">
-                <input id="ymin" class="form-control" type="number" name="ymin" min="-90" max="60" step="0.01">
+                <input id="ymin" class="form-control" type="number" name="ymin" min="-90" max="60" step="0.01" required>
             </div>
         </div>
         <div class="form-group row">
@@ -47,7 +47,7 @@
                 <label for="ymax">Highest temperature in Celsius:</label>
             </div>
             <div class="col-sm-10">
-                <input id="ymax" class="form-control" type="number" name="ymax" min="-90" max="60" step="0.01">
+                <input id="ymax" class="form-control" type="number" name="ymax" min="-90" max="60" step="0.01" required>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Plot</button>
@@ -59,7 +59,7 @@
                 <label for="selectStartYearCo2">Start year:</label>
             </div>
             <div class="col-sm-10">
-                <select id="selectStartYearCo2" class="form-control" name="selectStartYearCo2"></select>
+                <select id="selectStartYearCo2" class="form-control" name="selectStartYearCo2" required></select>
             </div>
         </div>
         <div class="form-group row">
@@ -67,7 +67,7 @@
                 <label for="selectEndYearCo2">End year:</label>
             </div>
             <div class="col-sm-10">
-                <select id="selectEndYearCo2" class="form-control" name="selectEndYearCo2"></select>
+                <select id="selectEndYearCo2" class="form-control" name="selectEndYearCo2" required></select>
             </div>
         </div>
         <div class="form-group row">
@@ -75,7 +75,7 @@
                 <label for="yminCo2">Lowest CO<sub>2</sub> value:</label>
             </div>
             <div class="col-sm-10">
-                <input id="yminCo2" class="form-control" type="number" name="yminCo2" min="0" max="10000" step="1">
+                <input id="yminCo2" class="form-control" type="number" name="yminCo2" min="0" max="10000" step="1" required>
             </div>
         </div>
         <div class="form-group row">
@@ -83,7 +83,7 @@
                 <label for="ymaxCo2">Highest CO<sub>2</sub> value:</label>
             </div>
             <div class="col-sm-10">
-                <input id="ymaxCo2" class="form-control" type="number" name="ymaxCo2" min="0" max="10000" step="1">
+                <input id="ymaxCo2" class="form-control" type="number" name="ymaxCo2" min="0" max="10000" step="1"  required>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Plot</button>
@@ -95,7 +95,7 @@
                 <label for="selectCo2Year">Year for Emissions:</label>
             </div>
             <div class="col-sm-10">
-                <select id="selectCo2Year" class="form-control" name="selectCo2Year"></select>
+                <select id="selectCo2Year" class="form-control" name="selectCo2Year" required></select>
             </div>
         </div>
         <div class="form-group row">
@@ -103,7 +103,7 @@
                 <label for="threshold">Threshold for the CO<sub>2</sub> values:</label>
             </div>
             <div class="col-sm-10">
-                <input id="threshold" class="form-control" type="number" name="threshold" min="0" max="100" step="0.01">
+                <input id="threshold" class="form-control" type="number" name="threshold" min="0" max="100" step="0.01" required>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Plot</button>

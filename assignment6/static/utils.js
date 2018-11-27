@@ -12,7 +12,7 @@ for (let i = 1816; i<= 2012; i++){
     selectStartYear.appendChild(opt);
 }
 
-for (let i = 1816; i<= 2012; i++){
+for (let i = 1817; i<= 2012; i++){
     let opt = document.createElement('option');
     opt.value = i;
     opt.innerHTML = i;
@@ -35,7 +35,7 @@ for (let i = 1751; i <= 2012; i++) {
     selectStartYearCo2.appendChild(opt);
 }
 
-for (let i = 1751; i <= 2012; i++) {
+for (let i = 1752; i <= 2012; i++) {
     let opt = document.createElement('option');
     opt.value = i;
     opt.innerHTML = i;

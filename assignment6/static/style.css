@@ -1,0 +1,27 @@
+body {
+    height: 100%;
+    width: 100%
+}
+
+.container {
+    height: 100%;
+}
+.container button {
+    position: relative;
+    left: 50%;
+}
+
+nav {
+    padding-top: 7px;
+    padding-left: 7px;
+}
+
+nav button {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+nav button:hover {
+    background-color: white;
+    color: cornflowerblue;
+}
