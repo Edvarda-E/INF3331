@@ -1,4 +1,4 @@
-from temperature_CO2_plotter import plot_temperature, plot_CO2
+from temperature_CO2_plotter import plot_temperature, plot_CO2, plot_CO2_by_country
 from flask import Flask, render_template, request
 
 app = Flask(__name__, static_url_path='/static')
@@ -49,6 +49,20 @@ def co2():
                            end_year=end_year,
                            ymin=ymin,
                            ymax=ymax,
+                           file=file)
+
+
+@app.route('/calculate_co2_bc', methods=['POST'])
+def calculate_co2_bc():
+    year = int(request.form['selectCo2Year'])
+    threshold = float(request.form['threshold'])
+
+    plot_CO2_by_country(year, threshold)
+    file='CO2_levels_{}.png'.format(year)
+
+    return render_template('result_co2_bc_template.html',
+                           year=year,
+                           threshold=threshold,
                            file=file)
 
 

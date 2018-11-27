@@ -5,6 +5,7 @@
     <h2>Data to be displayed:</h2>
     <input type="radio" name="implementation" value="temperature" onclick="showTemperatureForm();" checked> Temperature <br>
     <input type="radio" name="implementation" value="co2" onclick="showCo2Form();"> CO<sub>2</sub> <br>
+    <input type="radio" name="implementation" value="co2_bc" onclick="showCo2BcForm();"> CO<sub>2</sub> by Country <br>
     <br>
 
     <form id="temperature_form" action="calculate_temperature" method="POST">
@@ -83,6 +84,26 @@
             </div>
             <div class="col-sm-10">
                 <input id="ymaxCo2" class="form-control" type="number" name="ymaxCo2" min="0" max="10000" step="1">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Plot</button>
+    </form>
+
+    <form id="co2_bc_form" style="display: none" action="calculate_co2_bc" method="POST">
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="selectCo2Year">Year for Emissions:</label>
+            </div>
+            <div class="col-sm-10">
+                <select id="selectCo2Year" class="form-control" name="selectCo2Year"></select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="threshold">Threshold for the CO<sub>2</sub> values:</label>
+            </div>
+            <div class="col-sm-10">
+                <input id="threshold" class="form-control" type="number" name="threshold" min="0" max="100" step="0.01">
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Plot</button>

@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block body %}
+<div id="main" class="container">
+    <h2>Given data:</h2>
+    <p>Year: <b>{{ year }}</b></p>
+    <p>Threshold: <b>{{ ymax }}</b></p>
+    <a href="/">
+        <button type="submit" class="btn btn-primary">Back home</button>
+    </a>
+    <br>
+    <img src="/static/images/co2_by_country/{{file}}" alt="Co2 plot">
+</div>
+{% endblock %}
