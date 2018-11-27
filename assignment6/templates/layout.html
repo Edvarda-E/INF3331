@@ -1,0 +1,24 @@
+<!doctype html>
+<head>
+    <title>Data Plotter</title>
+    <!-- Bootstrap CSS retrieved from https://getbootstrap.com/docs/3.3/getting-started/ -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="/">Plotter</a>
+        {% if request.path == "/" %}
+            <a href="{{ url_for('helper')}}">
+                <button class="btn btn-outline-secondary" type="button">Help</button>
+            </a>
+        {% else %}
+            <a href="/">
+                <button class="btn btn-outline-secondary" type="button">Home</button>
+            </a>
+        {% endif %}
+    </nav>
+    {% block body %}{% endblock %}
+</body>

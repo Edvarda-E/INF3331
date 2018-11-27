@@ -52,6 +52,10 @@ def co2():
                            file=file)
 
 
+@app.route('/help')
+def helper():
+    return render_template('temperature_CO2_plotter.html')
+
 # Disables caching to prevent images from not updating, due to being saved in the browser cache
 @app.after_request
 def disable_caching(response):
