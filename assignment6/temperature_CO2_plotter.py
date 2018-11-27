@@ -1,6 +1,8 @@
+import sys
 import pandas as pd
 import argparse
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_temperature(year_range, ymin, ymax, month):
@@ -66,7 +68,7 @@ def plot_CO2(year_range, ymin, ymax):
     """
     try:
         # Use pandas to read the csv file, separating values on ,
-        co2_data = pd.read_csv('data/CO2.csv', sep=",")
+        co2_data = pd.read_csv('data/CO2.csv', sep=',')
 
         # Again I use boolean indexing to extract the parts of the dataframe within the year range only
         extracted_data_by_year = co2_data[(co2_data['Year'] >= year_range[0]) & (co2_data['Year'] <= year_range[1])]
@@ -98,6 +100,48 @@ def plot_CO2(year_range, ymin, ymax):
         print("Couldn't find the temperature data set")
 
 
+def plot_CO2_by_country(year, threshold):
+    """
+    Module that generates a plot of the CO2 data provided over the time range given.
+
+    Arguments:
+        year (int): What year to plot CO2 emissions for
+        threshold (float): The upper/lower threshold for the CO2 emission
+
+    Returns:
+        Stores an image in ~/static/images/...
+    """
+    try:
+        co2_data = pd.read_csv('data/CO2_by_country.csv', sep=",")
+        year = str(year)
+        y_pos = np.arange(len(co2_data[year]))
+        countries = co2_data['Country Name'].values
+        emissions = co2_data[year].values
+
+        above_threshold = np.maximum(emissions - threshold, 0)
+        below_threshold = np.minimum(emissions, threshold)
+
+        above_threshold_with_commas = list(above_threshold)
+        below_threshold_with_commas = list(below_threshold)
+
+        fig, ax = plt.subplots(figsize=(10, 30))
+        ax.barh(y_pos, below_threshold_with_commas, color="b")
+        ax.barh(y_pos, above_threshold_with_commas, color="r", left=below_threshold)
+        plt.yticks(y_pos, countries)
+        plt.gca().invert_yaxis()
+        plt.axvline(threshold, color='k', linestyle='dashed', label="Threshold")
+        plt.grid(linestyle="dotted")
+
+        plt.title("CO2 Emission by Country for Year {}".format(year))
+        plt.xlabel('CO2 Emission per Metric Capita')
+        plt.tight_layout()
+        plt.legend()
+        plt.savefig(fname="static/images/co2_by_country/CO2_levels_{}".format(year),
+                    dpi=80)
+    except FileNotFoundError as e:
+        print("Couldn't find the file")
+
+
 def verify_positional_parameters(temp_args, parser):
     """
     Checks that the positional parameters have the correct values for the given data set
@@ -115,10 +159,12 @@ def verify_positional_parameters(temp_args, parser):
     # Verifications needed regardless of data set
     if start_year > end_year:
         parser.error("The start year (time_range_start) must be before the end year (time_range_end)!")
+    if start_year == end_year:
+        parser.error("Must be atleast one year difference between the year ranges, e.g. 2011 2012")
     if temp_args.ymin > temp_args.ymax:
         parser.error("The ymin value must be smaller than the ymax value")
     if temp_args.ymin == temp_args.ymax:
-        parser.error("Must be atleast one year difference between the year ranges, e.g. 2011 2012")
+        parser.error("ymin and ymax cannot be the same value")
 
     # Data set specific verifications
     if data == "temperature":
@@ -160,7 +206,7 @@ def create_argparser():
     parser = argparse.ArgumentParser(description="Plots and saves either temperature or CO2 data from CSV files")
     parser.add_argument("data",
                         type=str,
-                        choices=["temperature", "co2"],
+                        choices=["temperature", "co2", "co2_by_country"],
                         help="What data to be used for the plot")
     parser.add_argument("time_range_start",
                         type=int,
@@ -184,9 +230,43 @@ def create_argparser():
     return temp_args
 
 
+def create_smaller_argparser():
+    """
+        Creates an argparser from the command line positional parameters in the CO2 by Country case
+
+        Arguments:
+            data (str): Which of the datasets to be used for the plot, either temperature or co2
+            year (int): What year the plot should be for
+            thershold (int): What the threshold should be for the CO2 emission
+
+        Returns
+            args (argparse Object)
+        """
+    parser = argparse.ArgumentParser(description="Plots and saves either temperature or CO2 data from CSV files")
+    parser.add_argument("data",
+                        type=str,
+                        choices=["co2_by_country"],
+                        help="What data to be used for the plot")
+    parser.add_argument("year",
+                        type=int,
+                        help="What year the plot should be for. [1960-2016]")
+    parser.add_argument("threshold",
+                        type=float,
+                        help="What the threshold should be for the CO2 emission")
+    temp_args = parser.parse_args()
+    if temp_args.year < 1960 or temp_args.year > 2016:
+        parser.error("The year must be within the range 1960 to 2016")
+    return temp_args
+
+
 if __name__ == "__main__":
-    args = create_argparser()
-    if args.data == "temperature":
-        plot_temperature((args.time_range_start, args.time_range_end), args.ymin, args.ymax, args.month)
+    if sys.argv[1] != "co2_by_country":
+        args = create_argparser()
+        if args.data == "temperature":
+            plot_temperature((args.time_range_start, args.time_range_end), args.ymin, args.ymax, args.month)
+        elif args.data == "co2":
+            plot_CO2((args.time_range_start, args.time_range_end), args.ymin, args.ymax)
     else:
-        plot_CO2((args.time_range_start, args.time_range_end), args.ymin, args.ymax)
+        args = create_smaller_argparser()
+        plot_CO2_by_country(args.year, args.threshold)
+
