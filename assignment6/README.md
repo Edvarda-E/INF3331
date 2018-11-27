@@ -8,6 +8,9 @@ This assignment was solved on a Ubuntu 17 system and requires the following pack
 - Pandas
 - Flask
 
+I did not turn my scripts into a project/package as shown in the lecture, as this was not requested anywhere
+in the assignment.
+
 In `temperature_CO2_plotter.py` from exercise 6.1 the modules `plot_temperature()` and `plot_CO2()` do have quite
 similar code due to the tasks being quite similar, however I found my attempt to abstract out the similar parts to be
 too difficult to read as it would be riddled with if-statements, and hence I found it better to leave it as is. 
