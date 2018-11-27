@@ -19,3 +19,7 @@ clarifications, decisions and how to run the scripts.
 ## Assignment 5
 Assignment 5 is now done and can be found under `assignment5/`. Please refer to the README under `assignment5/` for 
 clarifications, decisions and how to run the scripts.
+
+## Assignment 6
+Assignment 6 is now done and can be found under `assignment6/`. Please refer to the README under `assignment6/` for 
+clarifications, decisions and how to run the scripts.
