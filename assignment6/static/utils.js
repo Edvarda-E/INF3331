@@ -20,8 +20,8 @@ for (let i = 1817; i<= 2012; i++){
 }
 
 let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-               "November", "December"];
-for (let i = 0; i < 12; i++) {
+               "November", "December", "All"];
+for (let i = 0; i < 13; i++) {
     let opt = document.createElement('option');
     opt.value = months[i];
     opt.innerHTML = months[i];
