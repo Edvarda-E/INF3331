@@ -34,7 +34,7 @@ def plot_temperature(year_range, ymin, ymax, month):
     highest_temp_value = 0
     # Warns the user if the y-values are completely outside of the data set
     if month != "All":
-        print("NOT ALL")
+
         lowest_temp_value = extracted_data_by_year[month].min()
         highest_temp_value = extracted_data_by_year[month].max()
     else: # Month = "All"
@@ -42,9 +42,6 @@ def plot_temperature(year_range, ymin, ymax, month):
         #First max() returns a series with max for each column, second max() finds the max-value in series
         lowest_temp_value = extracted_data_by_year.iloc[:, 2:].min(1).min()
         highest_temp_value = extracted_data_by_year.iloc[:, 2:].max(1).max()
-
-    print(lowest_temp_value)
-    print(highest_temp_value)
 
     if ymax < lowest_temp_value:
         print("WARNING: Your ymax value is less than the lowest temperature value in the data set for " + month)
