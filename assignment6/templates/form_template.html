@@ -111,14 +111,5 @@
 </div>
 <!-- Script has to be put at the end to ensure that the body is loaded before the script -->
 <script src="{{url_for('static', filename='utils.js')}}"></script>
-<script> function validateTemperatureValues(){
-  var minTemp = document.forms["temperature_form"]["ymin"].value;
-  var maxTemp = document.forms["temperature_form"]["ymax"].value;
-  if (minTemp > maxTemp){
-    alert("Max temperature must be greater than minimum temperature");
-    return false;
-  }
 
-}
-</script>
 {% endblock %}

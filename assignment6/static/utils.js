@@ -66,3 +66,12 @@ function showCo2BcForm() {
     document.getElementById('co2_form').style.display ='none';
     document.getElementById('co2_bc_form').style.display='block';
 }
+
+function validateTemperatureValues(){
+  var minTemp = document.forms["temperature_form"]["ymin"].value;
+  var maxTemp = document.forms["temperature_form"]["ymax"].value;
+  if (minTemp > maxTemp){
+    alert("Max temperature must be greater than minimum temperature");
+    return false;
+  }
+}
