@@ -8,7 +8,7 @@
     <input type="radio" name="implementation" value="co2_bc" onclick="showCo2BcForm();"> CO<sub>2</sub> by Country <br>
     <br>
 
-    <form id="temperature_form" action="calculate_temperature" method="POST">
+    <form id="temperature_form" action="calculate_temperature" onsubmit="return validateTemperatureValues()" method="POST">
         <div class="form-group row">
             <div class="col-sm-2">
                 <label for="selectStartYear">Start year:</label>
@@ -111,4 +111,5 @@
 </div>
 <!-- Script has to be put at the end to ensure that the body is loaded before the script -->
 <script src="{{url_for('static', filename='utils.js')}}"></script>
+
 {% endblock %}

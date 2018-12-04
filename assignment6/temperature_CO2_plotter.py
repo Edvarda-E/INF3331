@@ -19,6 +19,8 @@ def plot_temperature(year_range, ymin, ymax, month):
     Returns:
         Saves the plot with the given boundaries as an image, in the ./static/images/temp directory
     """
+    temp = ""
+
     try:
         # Use pandas to read the csv file, separating values on ,
         temp = pd.read_csv('data/temperature.csv', sep=",")
@@ -26,9 +28,18 @@ def plot_temperature(year_range, ymin, ymax, month):
         # Here I use boolean indexing to extract the parts of the dataframe within the year range only
         extracted_data_by_year = temp[(temp['Year'] >= year_range[0]) & (temp['Year'] <= year_range[1])]
 
+        lowest_temp_value = 0
+        highest_temp_value = 0
         # Warns the user if the y-values are completely outside of the data set
-        lowest_temp_value = extracted_data_by_year[month].min()
-        highest_temp_value = extracted_data_by_year[month].max()
+        if month != "All":
+            lowest_temp_value = extracted_data_by_year[month].min()
+            highest_temp_value = extracted_data_by_year[month].max()
+        else: # Month = "All"
+            #Finds the max and min value of entire dataset
+            #First max() returns a series with max for each column, second max() finds the max-value in series
+            lowest_temp_value = extracted_data_by_year.iloc[:, 2:].min(1).min()
+            highest_temp_value = extracted_data_by_year.iloc[:, 2:].max(1).max()
+
         if ymax < lowest_temp_value:
             print("WARNING: Your ymax value is less than the lowest temperature value in the data set for " + month)
             print("The lowest temperature is " + str(lowest_temp_value) + " while you provided the ymax " + str(ymax))
@@ -36,19 +47,27 @@ def plot_temperature(year_range, ymin, ymax, month):
             print("WARNING: Your ymin value is higher than the highest temperature value in the data set for " + month)
             print("The highest temperature is " + str(highest_temp_value) + " while you provided the ymin " + str(ymin))
 
-        plot = extracted_data_by_year.plot(
-            title="Temperature Plot",
-            x='Year',                   # Sets the x-axis to be years
-            y=month,                    # Sets the y-axis to be the temperature for the desired month
-            ylim=(ymin, ymax),          # ylim=(bottom_value, top_value)
-            grid=True
-        )
+        if month == "All":
+            plot = extracted_data_by_year.plot(
+                title="Temperature Plot",
+                x='Year',                   # Sets the x-axis to be years
+                #y=month,                    # Sets the y-axis to be the temperature for the desired month
+                ylim=(ymin, ymax),          # ylim=(bottom_value, top_value)
+                grid=True)
+        else:
+            plot = extracted_data_by_year.plot(
+                title="Temperature Plot",
+                x='Year',                   # Sets the x-axis to be years
+                y=month,                    # Sets the y-axis to be the temperature for the desired month
+                ylim=(ymin, ymax),          # ylim=(bottom_value, top_value)
+                grid=True)
+
         plot.set_xlabel('Year temperature was measured')
         plot.set_ylabel('Temperature in Degrees Celsius')
         plot.grid(linestyle="dotted")
         # plot is a DataFrame AxesSubplot and has no savefig() module, hence I have to use the pyplot plt module instead
         plt.savefig('static/images/temp/{}_plot.png'.format(month))
-        # plt.show()
+        #plt.show()
 
     except FileNotFoundError as e:
         print("Couldn't find the temperature data set")
@@ -67,6 +86,8 @@ def plot_CO2(year_range, ymin, ymax):
     Returns:
         Saves the plot with the given boundaries as an image, in the ./static/images/co2 directory
     """
+
+    co2_data = ""
     try:
         # Use pandas to read the csv file, separating values on ,
         co2_data = pd.read_csv('data/CO2.csv', sep=',')
@@ -77,6 +98,7 @@ def plot_CO2(year_range, ymin, ymax):
         # Warns the user if the y-values are completely outside of the data set
         lowest_co2_value = extracted_data_by_year['Carbon'].min()
         highest_co2_value = extracted_data_by_year['Carbon'].max()
+
         if ymax < lowest_co2_value:
             print("WARNING: Your ymax value is less than the lowest CO2 value in the data set within the year range")
             print("The lowest CO2 value is " + str(lowest_co2_value) + " while you provided the ymax " + str(ymax))
@@ -96,9 +118,9 @@ def plot_CO2(year_range, ymin, ymax):
         plot.grid(linestyle="dotted")
         plt.savefig("static/images/co2/CO2_levels_{}_{}".format(str(year_range[0]), str(year_range[1])))
         # plt.show()
-
     except FileNotFoundError as e:
         print("Couldn't find the temperature data set")
+
 
 
 def plot_CO2_by_country(year, threshold):
@@ -114,8 +136,12 @@ def plot_CO2_by_country(year, threshold):
     Returns:
         Saves the plot with the given boundaries as an image, in the ./static/images/co2_by_country directory
     """
+
+    co2_data = ""
+
     try:
         co2_data = pd.read_csv('data/CO2_by_country.csv', sep=",")
+
         # I had some issues with the year being interpreted as an integer
         year = str(year)
         y_pos = np.arange(len(co2_data[year]))          # For the yticks
@@ -146,10 +172,11 @@ def plot_CO2_by_country(year, threshold):
         plt.tight_layout()              # Ensures all the country names make it into the picture
         plt.legend()                    # Display labels for the threshold
         plt.savefig(fname="static/images/co2_by_country/CO2_levels_{}".format(year),
-                    dpi=80)             # Store a dpi to prevent the result being too different on different monitors
+                                dpi=80)
+
+        # Store a dpi to prevent the result being too different on different monitors
     except FileNotFoundError as e:
         print("Couldn't find the file")
-
 
 def verify_positional_parameters(temp_args, parser):
     """
@@ -211,7 +238,7 @@ def create_argparser():
         args (argparse Object)
     """
     choices = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-               "November", "December"]
+               "November", "December", "All"]
     parser = argparse.ArgumentParser(description="Plots and saves either temperature or CO2 data from CSV files")
     parser.add_argument("data",
                         type=str,

@@ -1,0 +1,26 @@
+Comments from peer reviewer:
+
+First, very pretty Flask-app! I was super impressed!
+
+1) Cleaning up Try-catch block in plot_temperature and plot_CO2 and CO2_plot
+
+I moved most of the code out of the try-catch block, leaving only the actual read-csv statement.
+If the read fails, you don't want the program to go through all the other lines of code.
+You want it to return an error immediately after the fail.
+You only want to do the rest of the code if the try-catch passes.
+
+2) Adding an option for plotting temperature data for all months
+I altered the code in the plot_temperature so that you can also plot all months.
+I added an if-else block checking if the ymin and ymax are within the ranges of the dataframe.
+I also added an if-else block for the plot-function, as the plot-function would not accept 'y = "All" '
+as input.
+
+I also added "All" as an option to the months-parameter in utils.js, so that it will show in on
+the web-page.
+
+python3 temperature_CO2_plotter.py temperature 2000 2012 8 30 -month All
+
+3) Input validation front-end
+I added a function called validateTemperatureValues() on the end of the form_template.html.
+It checks if ymin is lower than ymax. If not, it returns an error message box asking the user to change
+the temperature range.
