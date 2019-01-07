@@ -1,4 +1,4 @@
-# INF3331-ererikse
+# INF3331
 This is the repository for master student Edvarda Eriksen (ererikse), who's enrolled in INF4331.
 
 ## Assignment 1
